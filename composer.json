@@ -31,6 +31,13 @@
         "lint": [
             "rector",
             "pint --parallel"
+        ],
+        "lint:check": [
+            "rector --dry-run",
+            "pint --parallel --test"
+        ],
+        "test:types": [
+            "phpstan"
         ]
     },
     "config": {

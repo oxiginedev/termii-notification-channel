@@ -6,8 +6,6 @@ namespace Oxiginedev\Termii\Messages;
 
 final class TermiiSmsMessage extends TermiiMessage
 {
-    public $dnd;
-
     /**
      * Route the message through the dnd channel
      *
@@ -16,13 +14,13 @@ final class TermiiSmsMessage extends TermiiMessage
     public $useDnd;
 
     /**
-     * Summary of routeDnd
+     * Set the useDnd condition
      *
      * @return $this
      */
-    public function useDnd(bool|callable $dnd = false, ...$args): self
+    public function useDnd(bool|callable $condition = true, mixed ...$args): self
     {
-        $this->dnd = is_callable($dnd) ? $dnd($args) : $dnd;
+        $this->useDnd = is_callable($condition) ? $condition($args) : $condition;
 
         return $this;
     }

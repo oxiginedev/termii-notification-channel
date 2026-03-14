@@ -25,6 +25,6 @@ final readonly class TermiiSmsChannel
         $message = $notification->toTermiiSms($notifiable);
         $channel = $message->useDnd ? Channel::DND : Channel::GENERIC;
 
-        return $this->termii->sendSms($to, $message->content, $channel);
+        return $this->termii->sendSms($to, $message->content, $message->type, $channel);
     }
 }

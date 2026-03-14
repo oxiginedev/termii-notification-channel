@@ -23,6 +23,6 @@ final readonly class TermiiWhatsappChannel
 
         $message = $notification->toTermiiWhatsapp($notifiable);
 
-        return $this->termii->sendWhatsapp($to, $message->content, $message->media);
+        return $this->termii->sendWhatsapp($to, $message->content, $message->type, $message->media);
     }
 }
