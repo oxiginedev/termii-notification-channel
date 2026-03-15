@@ -1,5 +1,5 @@
 {
-    "name": "oxiginedev/termii-notification-channel",
+    "name": "adedaramola/termii-notification-channel",
     "description": "Termii Notification Channel for Laravel",
     "homepage": "https://github.com/oxiginedev/termii-notification-channel",
     "type": "library",
@@ -24,7 +24,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Oxiginedev\\Termii\\": "src/"
+            "Adedaramola\\TermiiNotificationChannel\\": "src/"
         }
     },
     "scripts": {

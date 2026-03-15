@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Oxiginedev\Termii\Messages;
+namespace Adedaramola\TermiiNotificationChannel\Messages;
 
 final class TermiiSmsMessage extends TermiiMessage
 {

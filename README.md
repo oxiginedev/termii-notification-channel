@@ -11,7 +11,7 @@
 ## Installation
 
 ```bash
-composer require oxiginedev/termii-notification-channel
+composer require adedaramola/termii-notification-channel
 ```
 
 ## Configuration
@@ -55,16 +55,16 @@ class User extends Authenticatable
 
 ### Formatting SMS Notifications
 
-If a notification should be sent using Termii SMS, the notification class must first implement the `Oxiginedev\Termii\Contracts\TermiSmsNotification` interface, this requires you to define a `toTermiiSms` method on the notification entity
+If a notification should be sent using Termii SMS, the notification class must first implement the `Adedaramola\TermiiNotificationChannel\Contracts\TermiSmsNotification` interface, this requires you to define a `toTermiiSms` method on the notification entity
 
 ```php
 <?php
 
 namespace App\Notifications;
 
-use Oxiginedev\Termii\Channels\TermiiSmsChannel;
-use Oxiginedev\Termii\Contracts\TermiiSmsNotification;
-use Oxiginedev\Termii\Messages\TermiiSmsMessage;
+use Adedaramola\TermiiNotificationChannel\Channels\TermiiSmsChannel;
+use Adedaramola\TermiiNotificationChannel\Contracts\TermiiSmsNotification;
+use Adedaramola\TermiiNotificationChannel\Messages\TermiiSmsMessage;
 use Illuminate\Notifications\Notification;
 
 class WelcomeNotification extends Notification implements TermiiSmsNotification
@@ -93,7 +93,7 @@ Termii::useDefaultSmsChannel(Channel::DND);
 This should ideally be called the the `boot` method of your `AppServiceProvider`. Alternatively, you can also call the `useDnd` method on the message class.
 
 ```php
-use Oxiginedev\Termii\Messages\TermiiSmsMessage;
+use Adedaramola\TermiiNotificationChannel\Messages\TermiiSmsMessage;
 
 public function toTermiiSms(object $notifiable): TermiiSmsMessage
 {
@@ -108,14 +108,53 @@ public function toTermiiSms(object $notifiable): TermiiSmsMessage
 You can specify the format of the message being sent. Supported types includes, `plain`, `unicode`, `voice`.
 
 ```php
-use Oxiginedev\Termii\Enums\Type;
-use Oxiginedev\Termii\Messages\TermiiSmsMessage;
+use Adedaramola\TermiiNotificationChannel\Enums\Type;
+use Adedaramola\TermiiNotificationChannel\Messages\TermiiSmsMessage;
 
 public function toTermiiSms(object $notifiable): TermiiSmsMessage
 {
     return (new TermiiSmsMessage)
         ->content('This should be sent using another type')
         ->type(Type::UNICODE);
+}
+```
+
+## Whatsapp Channel
+
+Termii also supports sending messages to whatsapp.
+
+### Routing Whatsapp Notifications
+
+You also need to define where the whatsapp notifications needs to be routed to. Define a `routeNotificationForTermiiWhatsapp` method on your notifiable entity. Ensure the phone number is internationally formatted (i.e, 2349001111222).
+
+### Sending Whatsapp Notifications
+
+If a notification should be sent using Termii Whatsapp, the notification class must first implement the `Adedaramola\TermiiNotificationChannel\Contracts\TermiWhatsappNotification` interface, this requires you to define a `toTermiiWhatsapp` method on the notification entity
+
+```php
+<?php
+
+namespace App\Notifications;
+
+use Adedaramola\TermiiNotificationChannel\Channels\TermiiWhatsappChannel;
+use Adedaramola\TermiiNotificationChannel\Contracts\TermiiWhatsappNotification;
+use Adedaramola\TermiiNotificationChannel\Messages\TermiiWhatsappMessage;
+use Illuminate\Notifications\Notification;
+
+class WelcomeNotification extends Notification implements TermiiWhatsappNotification
+{
+    public function via(object $notifiable): array
+    {
+        return [TermiiWhatsappChannel::class];
+    }
+
+    public function toTermiiWhatsapp(object $notifiable): TermiiWhatsappMessage
+    {
+        return (new TermiiWhatsappMessage)
+            ->content('This is a test notification')
+            ->mediaUrl('https://link.to/media')
+            ->mediaCaption('This is a sample media');
+    }
 }
 ```
 

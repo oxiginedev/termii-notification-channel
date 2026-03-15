@@ -2,15 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Oxiginedev\Termii;
+namespace Adedaramola\TermiiNotificationChannel;
 
+use Adedaramola\TermiiNotificationChannel\Enums\Channel;
+use Adedaramola\TermiiNotificationChannel\Enums\Type;
+use Adedaramola\TermiiNotificationChannel\Exceptions\TermiiFailedToSendException;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Http;
 use InvalidArgumentException;
-use Oxiginedev\Termii\Data\Media;
-use Oxiginedev\Termii\Enums\Channel;
-use Oxiginedev\Termii\Enums\Type;
-use Oxiginedev\Termii\Exceptions\TermiiFailedToSendException;
 
 use function in_array;
 use function sprintf;
@@ -35,12 +34,12 @@ final class Termii
         return $this->send($to, $message, $type, $channel ?? self::$defaultSmsChannel);
     }
 
-    public function sendWhatsapp(string $to, string $message, Type $type, ?Media $media = null): array
+    public function sendWhatsapp(string $to, string $message, Type $type, ?string $mediaUrl = null, ?string $mediaCaption = null): array
     {
-        return $this->send($to, $message, $type, Channel::WHATSAPP, $media);
+        return $this->send($to, $message, $type, Channel::WHATSAPP, $mediaUrl, $mediaCaption);
     }
 
-    private function send(string $to, string $message, Type $type, Channel $channel, ?Media $media = null): array
+    private function send(string $to, string $message, Type $type, Channel $channel, ?string $mediaUrl = null, ?string $mediaCaption = null): array
     {
         $payload = [
             'api_key' => config('services.termii.key'),
@@ -51,9 +50,12 @@ final class Termii
             'type' => $type->value,
         ];
 
-        if ($media instanceof Media && $channel === Channel::WHATSAPP) {
+        if (($mediaUrl || $mediaCaption) && $channel === Channel::WHATSAPP) {
             unset($payload['sms']);
-            $payload['media'] = $media->toArray();
+            $payload['media'] = [
+                'url' => $mediaUrl,
+                'caption' => $mediaCaption,
+            ];
         }
 
         $response = $this->getClient()->post('api/sms/send', $payload);

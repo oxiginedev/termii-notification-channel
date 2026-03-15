@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Oxiginedev\Termii;
+namespace Adedaramola\TermiiNotificationChannel;
 
 use Illuminate\Support\ServiceProvider;
 use Override;

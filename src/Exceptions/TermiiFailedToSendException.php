@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Oxiginedev\Termii\Exceptions;
+namespace Adedaramola\TermiiNotificationChannel\Exceptions;
 
 use Exception;
 

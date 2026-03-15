@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Oxiginedev\Termii\Messages;
+namespace Adedaramola\TermiiNotificationChannel\Messages;
 
-use Oxiginedev\Termii\Enums\Type;
+use Adedaramola\TermiiNotificationChannel\Enums\Type;
 
 abstract class TermiiMessage
 {

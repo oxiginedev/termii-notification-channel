@@ -2,27 +2,44 @@
 
 declare(strict_types=1);
 
-namespace Oxiginedev\Termii\Messages;
-
-use Oxiginedev\Termii\Data\Media;
+namespace Adedaramola\TermiiNotificationChannel\Messages;
 
 final class TermiiWhatsappMessage extends TermiiMessage
 {
     /**
-     * The media attached to the message
+     * The url of the media attached to the message
      *
-     * @var Media
+     * @var string
      */
-    public $media;
+    public $mediaUrl;
 
     /**
-     * Set the media for the message
+     * The caption for the media
+     *
+     * @var string
+     */
+    public $mediaCaption;
+
+    /**
+     * Set the media url for the message
      *
      * @return $this
      */
-    public function media(Media $media): self
+    public function mediaUrl(string $url): self
     {
-        $this->media = $media;
+        $this->mediaUrl = $url;
+
+        return $this;
+    }
+
+    /**
+     * Set the media caption for the message
+     *
+     * @return $this
+     */
+    public function mediaCaption(string $caption): self
+    {
+        $this->mediaCaption = $caption;
 
         return $this;
     }

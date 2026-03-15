@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Oxiginedev\Termii\Enums;
+namespace Adedaramola\TermiiNotificationChannel\Enums;
 
 enum Type: string
 {

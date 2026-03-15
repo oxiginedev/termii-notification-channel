@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Oxiginedev\Termii\Channels;
+namespace Adedaramola\TermiiNotificationChannel\Channels;
 
+use Adedaramola\TermiiNotificationChannel\Contracts\TermiiWhatsappNotification;
+use Adedaramola\TermiiNotificationChannel\Termii;
 use Illuminate\Notifications\Notification;
-use Oxiginedev\Termii\Contracts\TermiiWhatsappNotification;
-use Oxiginedev\Termii\Termii;
 use RuntimeException;
 
 final readonly class TermiiWhatsappChannel
@@ -23,6 +23,12 @@ final readonly class TermiiWhatsappChannel
 
         $message = $notification->toTermiiWhatsapp($notifiable);
 
-        return $this->termii->sendWhatsapp($to, $message->content, $message->type, $message->media);
+        return $this->termii->sendWhatsapp(
+            $to,
+            $message->content,
+            $message->type,
+            $message->mediaUrl,
+            $message->mediaCaption
+        );
     }
 }

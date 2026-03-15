@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Oxiginedev\Termii\Contracts;
+namespace Adedaramola\TermiiNotificationChannel\Contracts;
 
-use Oxiginedev\Termii\Messages\TermiiWhatsappMessage;
+use Adedaramola\TermiiNotificationChannel\Messages\TermiiWhatsappMessage;
 
 interface TermiiWhatsappNotification
 {

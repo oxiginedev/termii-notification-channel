@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Oxiginedev\Termii\Channels;
+namespace Adedaramola\TermiiNotificationChannel\Channels;
 
+use Adedaramola\TermiiNotificationChannel\Contracts\TermiiSmsNotification;
+use Adedaramola\TermiiNotificationChannel\Enums\Channel;
+use Adedaramola\TermiiNotificationChannel\Termii;
 use Illuminate\Notifications\Notification;
-use Oxiginedev\Termii\Contracts\TermiiSmsNotification;
-use Oxiginedev\Termii\Enums\Channel;
-use Oxiginedev\Termii\Termii;
 use RuntimeException;
 
 final readonly class TermiiSmsChannel
